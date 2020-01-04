@@ -3,8 +3,15 @@
 </template>
 
 <script>
+import { WeatherForecast } from "../services/WeatherForecast";
+
 export default {
-  name: "WeatherApp"
+  name: "WeatherApp",
+  data() {
+    return {
+      forecast: new WeatherForecast()
+    };
+  }
 };
 </script>
 
