@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export class WeatherForecast {
 	constructor() {
 		this.location = '';
@@ -73,9 +75,9 @@ export class WeatherForecast {
 		this.windSpeed = data.wind.speed;
 		this.humidity = data.main.humidity;
 
-		this.sunrise = data.sys.sunrise;
-		this.sunset = data.sys.sunset;
-		this.isDayLight = this.checkIfDayLight(this.sunrise, this.sunset);
+		this.sunrise = moment.unix(data.sys.sunrise).format('kk:mm');
+		this.sunset = moment.unix(data.sys.sunset).format('kk:mm');
+		this.isDayLight = this.checkIfDayLight(data.sys.sunrise, data.sys.sunset);
 
 		this.weatherIcon = this.getWeatherIcon(data.weather[0].id);
 	}
@@ -88,30 +90,30 @@ export class WeatherForecast {
 
 		// check if thunderstorm
 		if (id >= 200 && id <= 232) {
-			return `thunderstorm-${time}.svg`;
+			return require(`../assets/icons/thunderstorm-${time}.svg`);
 		}
 
 		// check if rain
 		if (id >= 300 && id <= 531) {
-			return `rain-${time}.svg`;
+			return require(`../assets/icons/rain-${time}.svg`);
 		}
 
 		// check if snow
 		if (id >= 600 && id <= 622) {
-			return `snow-${time}.svg`;
+			return require(`../assets/icons/snow-${time}.svg`);
 		}
 
 		// check if atmosphere
 		if (id >= 701 && id <= 781) {
-			return `fog-${time}.svg`;
+			return require(`../assets/icons/fog-${time}.svg`);
 		}
 
 		// check if clouds
 		if (id >= 801 && id <= 804) {
-			return `clouds-${time}.svg`;
+			return require(`../assets/icons/clouds-${time}.svg`);
 		}
 
-		return `clear-${time}.svg`;
+		return require(`../assets/icons/clear-${time}.svg`);
 	}
 
 	/*
