@@ -5,6 +5,7 @@ export class WeatherForecast {
 		this.weatherIcon = '';
 
 		this.temperature = 0;
+		this.temperatureFeelsLike = 0;
 		this.temperatureHighest = 0;
 		this.temperatureLowest = 0;
 
@@ -14,6 +15,7 @@ export class WeatherForecast {
 
 		this.sunrise = 0;
 		this.sunset = 0;
+		this.isDayLight = false;
 
 		this.getLocation();
 	}
@@ -61,9 +63,10 @@ export class WeatherForecast {
 	setData(data) {
 		this.location = `${data.name}, ${data.sys.country}`;
 		this.description = data.weather[0].description;
-		this.weatherIcon = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+		this.weatherIcon = this.getWeatherIcon(data.weather[0].id);
 
 		this.temperature = Math.round(data.main.temp);
+		this.temperatureFeelsLike = Math.round(data.main.feels_like);
 		this.temperatureHighest = Math.round(data.main.temp_max);
 		this.temperatureLowest = Math.round(data.main.temp_min);
 
@@ -73,5 +76,46 @@ export class WeatherForecast {
 
 		this.sunrise = data.sys.sunrise;
 		this.sunset = data.sys.sunset;
+		this.isDayLight = this.checkIfDayLight(this.sunrise, this.sunset);
+	}
+
+	/*
+	 * Get weather icon based on current weather type
+	 */
+	getWeatherIcon(id) {
+		// check if thunderstorm
+		if (id >= 200 && id <= 232) {
+			return 'thunderstorm.svg';
+		}
+
+		// check if rain
+		if (id >= 300 && id <= 531) {
+			return 'rain.svg';
+		}
+
+		// check if snow
+		if (id >= 600 && id <= 622) {
+			return 'snow.svg';
+		}
+
+		// check if atmosphere
+		if (id >= 701 && id <= 781) {
+			return 'mist.svg';
+		}
+
+		// check if clouds
+		if (id >= 801 && id <= 804) {
+			return 'clouds.svg';
+		}
+
+		return 'clear.svg';
+	}
+
+	/*
+	 * Check if its day or night based on time of sunrise and sunset
+	 */
+	checkIfDayLight(sunrise, sunset) {
+		const now = Math.round(new Date() / 1000);
+		return now >= sunrise && now <= sunset;
 	}
 }
