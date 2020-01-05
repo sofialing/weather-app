@@ -14,17 +14,7 @@
 <script>
 export default {
 	name: 'SunHours',
-	props: {
-		sunrise: {
-			type: String
-		},
-		sunset: {
-			type: String
-		},
-		time: {
-			type: String
-		}
-	},
+	props: ['sunrise', 'sunset', 'time'],
 	computed: {
 		sunriseIcon() {
 			return require(`@/assets/icons/sunrise-${this.time}.svg`);
