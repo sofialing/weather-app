@@ -1,36 +1,21 @@
 <template>
 	<section>
-		<div>
-			<p class="day">Mon</p>
-			<img src="@/assets/icons/clear-day.svg" class="weather-icon" />
-			<p class="temp">3&deg;</p>
-		</div>
-		<div>
-			<p class="day">Tue</p>
-			<img src="@/assets/icons/clear-day.svg" class="weather-icon" />
-			<p class="temp">5&deg;</p>
-		</div>
-		<div>
-			<p class="day">Wed</p>
-			<img src="@/assets/icons/clear-day.svg" class="weather-icon" />
-			<p class="temp">1&deg;</p>
-		</div>
-		<div>
-			<p class="day">Thu</p>
-			<img src="@/assets/icons/clear-day.svg" class="weather-icon" />
-			<p class="temp">6&deg;</p>
-		</div>
-		<div>
-			<p class="day">Fri</p>
-			<img src="@/assets/icons/clear-day.svg" class="weather-icon" />
-			<p class="temp">5&deg;</p>
+		<div v-for="item in forecast" :key="item.day">
+			<p class="day">{{ item.day }}</p>
+			<img :src="item.icon" class="weather-icon" />
+			<p class="temp">{{ item.temp }}&deg;</p>
 		</div>
 	</section>
 </template>
 
 <script>
 export default {
-	name: 'Forecast'
+	name: 'Forecast',
+	props: {
+		forecast: {
+			type: Array
+		}
+	}
 };
 </script>
 

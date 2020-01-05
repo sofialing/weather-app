@@ -8,12 +8,13 @@
 			:sunset="forecast.sunset"
 			:time="dayOrNight"
 		/>
-		<Forecast />
+		<Forecast :forecast="longterm.list" />
 	</main>
 </template>
 
 <script>
 import { WeatherForecast } from '../services/WeatherForecast';
+import { WeatherWeekForecast } from '../services/WeatherWeekForecast';
 import Location from '../components/Location';
 import Weather from '../components/Weather';
 import Measurements from '../components/Measurements';
@@ -31,7 +32,8 @@ export default {
 	},
 	data() {
 		return {
-			forecast: new WeatherForecast()
+			forecast: new WeatherForecast(),
+			longterm: new WeatherWeekForecast()
 		};
 	},
 	computed: {
