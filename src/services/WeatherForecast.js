@@ -63,7 +63,6 @@ export class WeatherForecast {
 	setData(data) {
 		this.location = `${data.name}, ${data.sys.country}`;
 		this.description = data.weather[0].description;
-		this.weatherIcon = this.getWeatherIcon(data.weather[0].id);
 
 		this.temperature = Math.round(data.main.temp);
 		this.temperatureFeelsLike = Math.round(data.main.feels_like);
@@ -77,38 +76,42 @@ export class WeatherForecast {
 		this.sunrise = data.sys.sunrise;
 		this.sunset = data.sys.sunset;
 		this.isDayLight = this.checkIfDayLight(this.sunrise, this.sunset);
+
+		this.weatherIcon = this.getWeatherIcon(data.weather[0].id);
 	}
 
 	/*
 	 * Get weather icon based on current weather type
 	 */
 	getWeatherIcon(id) {
+		const time = this.isDayLight ? 'day' : 'night';
+
 		// check if thunderstorm
 		if (id >= 200 && id <= 232) {
-			return 'thunderstorm.svg';
+			return `thunderstorm-${time}.svg`;
 		}
 
 		// check if rain
 		if (id >= 300 && id <= 531) {
-			return 'rain.svg';
+			return `rain-${time}.svg`;
 		}
 
 		// check if snow
 		if (id >= 600 && id <= 622) {
-			return 'snow.svg';
+			return `snow-${time}.svg`;
 		}
 
 		// check if atmosphere
 		if (id >= 701 && id <= 781) {
-			return 'mist.svg';
+			return `fog-${time}.svg`;
 		}
 
 		// check if clouds
 		if (id >= 801 && id <= 804) {
-			return 'clouds.svg';
+			return `clouds-${time}.svg`;
 		}
 
-		return 'clear.svg';
+		return `clear-${time}.svg`;
 	}
 
 	/*
