@@ -4,7 +4,7 @@ export class WeatherForecast {
 	constructor() {
 		this.location = '';
 		this.description = '';
-		this.weatherIcon = '';
+		this.weatherIcon = require(`../assets/icons/clouds-day.svg`);
 
 		this.temperature = 0;
 		this.temperatureFeelsLike = 0;
@@ -15,9 +15,9 @@ export class WeatherForecast {
 		this.windSpeed = 0;
 		this.humidity = 0;
 
-		this.sunrise = 0;
-		this.sunset = 0;
-		this.isDayLight = false;
+		this.sunrise = '00:00';
+		this.sunset = '00:00';
+		this.isDayLight = true;
 
 		this.getLocation();
 	}
@@ -26,23 +26,34 @@ export class WeatherForecast {
 	 * Get users current location
 	 */
 	getLocation() {
+		const obj = this;
 		if (navigator.onLine) {
-			navigator.geolocation.getCurrentPosition(position =>
-				this.updateForecast(position.coords)
+			navigator.geolocation.getCurrentPosition(
+				obj.updateForecast.bind(obj),
+				obj.handleError.bind(obj)
 			);
+		} else {
+			obj.description = 'Geolocation is not supported by this browser.';
 		}
+	}
+
+	/*
+	 * Show error message if user deny access to geolocation
+	 */
+	handleError(error) {
+		this.description = error.message;
 	}
 
 	/*
 	 * Get current forecast based on users position
 	 */
-	async updateForecast(coords) {
+	async updateForecast({ coords }) {
 		let data = null;
 
 		try {
 			data = await this.getForecast(coords);
 		} catch (e) {
-			console.log('There was an error, ', e);
+			console.log('An error occurred: ', e);
 		}
 
 		this.setData(data);
