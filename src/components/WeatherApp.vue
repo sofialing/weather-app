@@ -61,12 +61,12 @@ main {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.35), 0 15px 12px rgba(0, 0, 0, 0.25);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
   position: relative;
 }
 
@@ -83,7 +83,7 @@ main {
       rgba(191, 191, 191, 0.1),
       rgba(191, 191, 191, 0.2)
     ),
-    url("../assets/bg-day-3.jpg");
+    url("../assets/bg-day.jpg");
   color: black;
 }
 
