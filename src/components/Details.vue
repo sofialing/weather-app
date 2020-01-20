@@ -2,48 +2,54 @@
   <section>
     <div class="measurements">
       <div>
-        <p>{{ data.windSpeed }}m/s</p>
+        <p>{{ forecast.wind.speed }}m/s</p>
         <p>Wind</p>
       </div>
       <div>
-        <p>{{ data.humidity }}%</p>
+        <p>{{ forecast.main.humidity }}%</p>
         <p>Humidity</p>
       </div>
       <div>
-        <p>{{ data.temperatureFeelsLike }}&deg;</p>
+        <p>{{ Math.round(forecast.main.feels_like) }}&deg;</p>
         <p>Feels like</p>
       </div>
     </div>
     <div class="sun-hours">
       <div>
         <img :src="sunriseIcon" class="icon" />
-        <p>{{ sun.sunrise }}</p>
+        <p>{{ sunriseTime }}</p>
       </div>
       <div>
         <img :src="sunsetIcon" class="icon" />
-        <p>{{ sun.sunset }}</p>
+        <p>{{ sunsetTime }}</p>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "Details",
   props: {
-    data: {
-      type: Object
-    },
-    sun: {
-      type: Object
+    forecast: {
+      type: Object,
+      required: true
     }
   },
   computed: {
+    sunriseTime() {
+      return moment.unix(this.forecast.sys.sunrise).format("kk:mm");
+    },
+    sunsetTime() {
+      return moment.unix(this.forecast.sys.sunset).format("kk:mm");
+    },
     sunriseIcon() {
-      return require(`@/assets/icons/sunrise-${this.sun.time}.svg`);
+      return require(`@/assets/icons/sunrise-day.svg`);
     },
     sunsetIcon() {
-      return require(`@/assets/icons/sunset-${this.sun.time}.svg`);
+      return require(`@/assets/icons/sunset-day.svg`);
     }
   }
 };

@@ -1,51 +1,51 @@
 <template>
-  <main :class="{ day: forecast.isDayLight, night: !forecast.isDayLight }">
-    <Location :location="forecast.location" :time="dayOrNight" />
-    <Weather :forecast="forecast"></Weather>
-    <Details :data="measurements" :sun="sunData" />
-    <Forecast :forecast="longterm.list" />
+  <main :class="{ day: isDayLight, night: !isDayLight }">
+    <Location :forecast="currentWeather" />
+    <Weather :forecast="currentWeather" />
+    <Details :forecast="currentWeather" />
+    <Forecast :forecast="weatherForecast" />
   </main>
 </template>
 
 <script>
-import { WeatherForecast } from "../services/WeatherForecast";
-import { WeatherWeekForecast } from "../services/WeatherWeekForecast";
-import Location from "../components/Location";
-import Weather from "../components/Weather";
-import Details from "../components/Details";
-import Forecast from "../components/Forecast";
+import Location from "@/components/Location";
+import Weather from "@/components/Weather";
+import Details from "@/components/Details";
+import Forecast from "@/components/Forecast";
 
 export default {
   name: "WeatherApp",
+  props: {
+    currentWeather: {
+      type: Object,
+      required: true
+    },
+    weatherForecast: {
+      type: Array,
+      required: true
+    }
+  },
   components: {
     Location,
     Weather,
     Details,
     Forecast
   },
-  data() {
-    return {
-      forecast: new WeatherForecast(),
-      longterm: new WeatherWeekForecast()
-    };
-  },
   computed: {
-    dayOrNight() {
-      return this.forecast.isDayLight ? "day" : "night";
+    isDayLight() {
+      const now = Math.round(new Date() / 1000);
+      return (
+        now >= this.currentWeather.sys.sunrise &&
+        now <= this.currentWeather.sys.sunset
+      );
     },
-    measurements() {
-      return {
-        windSpeed: this.forecast.windSpeed,
-        humidity: this.forecast.humidity,
-        temperatureFeelsLike: this.forecast.temperatureFeelsLike
-      };
-    },
-    sunData() {
-      return {
-        sunrise: this.forecast.sunrise,
-        sunset: this.forecast.sunset,
-        time: this.forecast.isDayLight ? "day" : "night"
-      };
+    getTimeOfDay() {
+      const now = Math.round(new Date() / 1000);
+
+      return now >= this.currentWeather.sys.sunrise &&
+        now <= this.currentWeather.sys.sunset
+        ? "day"
+        : "night";
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- <img :src="searchIcon" class="search-icon" /> -->
-    <p>{{ location }}</p>
+    <p>{{ getLocation }}</p>
   </section>
 </template>
 
@@ -9,14 +9,18 @@
 export default {
   name: "Location",
   props: {
-    location: {
-      type: String
+    forecast: {
+      type: Object,
+      required: true
     },
     time: {
       type: String
     }
   },
   computed: {
+    getLocation() {
+      return `${this.forecast.name}, ${this.forecast.sys.country}`;
+    },
     searchIcon() {
       return require(`../assets/icons/search-${this.time}.svg`);
     }

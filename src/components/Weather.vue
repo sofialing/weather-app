@@ -1,12 +1,12 @@
 <template>
   <section>
     <div>
-      <img :src="forecast.weatherIcon" class="weather-icon" />
-      <p class="description">{{ forecast.description }}</p>
+      <img :src="getWeatherIcon" class="weather-icon" />
+      <p class="description">{{ getDescription }}</p>
       <p class="time">Today {{ time }}</p>
     </div>
     <div>
-      <span class="temperature">{{ forecast.temperature }}&deg;</span>
+      <span class="temperature">{{ getTemperature }}&deg;</span>
     </div>
   </section>
 </template>
@@ -18,7 +18,47 @@ export default {
   name: "Weather",
   props: {
     forecast: {
-      type: Object
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    getDescription() {
+      return this.forecast.weather[0].description;
+    },
+    getTemperature() {
+      return Math.round(this.forecast.main.temp);
+    },
+    getWeatherIcon() {
+      const time = "day";
+      const id = this.forecast.weather[0].id;
+
+      // check if thunderstorm
+      if (id >= 200 && id <= 232) {
+        return require(`../assets/icons/thunderstorm-${time}.svg`);
+      }
+
+      // check if rain
+      if (id >= 300 && id <= 531) {
+        return require(`../assets/icons/rain-${time}.svg`);
+      }
+
+      // check if snow
+      if (id >= 600 && id <= 622) {
+        return require(`../assets/icons/snow-${time}.svg`);
+      }
+
+      // check if atmosphere
+      if (id >= 701 && id <= 781) {
+        return require(`../assets/icons/fog-${time}.svg`);
+      }
+
+      // check if clouds
+      if (id >= 801 && id <= 804) {
+        return require(`../assets/icons/clouds-${time}.svg`);
+      }
+
+      return require(`../assets/icons/clear-${time}.svg`);
     }
   },
   data() {
