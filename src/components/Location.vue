@@ -2,6 +2,7 @@
   <section>
     <!-- <img :src="searchIcon" class="search-icon" /> -->
     <p>{{ getLocation }}</p>
+    <small v-if="this.forecast.name === 'Globe'">Allow geolocation to show your current weather.</small>
   </section>
 </template>
 
@@ -19,7 +20,10 @@ export default {
   },
   computed: {
     getLocation() {
-      return `${this.forecast.name}, ${this.forecast.sys.country}`;
+      if (this.forecast.sys.country) {
+        return `${this.forecast.name}, ${this.forecast.sys.country}`;
+      }
+      return this.forecast.name;
     },
     searchIcon() {
       return require(`../assets/icons/search-${this.time}.svg`);
@@ -39,5 +43,6 @@ p {
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.05em;
+  text-align: center;
 }
 </style>

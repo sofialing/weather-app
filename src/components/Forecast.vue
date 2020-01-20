@@ -15,38 +15,40 @@ export default {
     forecast: {
       type: Array,
       required: true
+    },
+    timeOfDay: {
+      type: String,
+      required: true
     }
   },
   methods: {
     getWeatherIcon(id) {
-      const time = "day";
-
       // check if thunderstorm
       if (id >= 200 && id <= 232) {
-        return require(`../assets/icons/thunderstorm-${time}.svg`);
+        return require(`../assets/icons/thunderstorm-${this.timeOfDay}.svg`);
       }
 
       // check if rain
       if (id >= 300 && id <= 531) {
-        return require(`../assets/icons/rain-${time}.svg`);
+        return require(`../assets/icons/rain-${this.timeOfDay}.svg`);
       }
 
       // check if snow
       if (id >= 600 && id <= 622) {
-        return require(`../assets/icons/snow-${time}.svg`);
+        return require(`../assets/icons/snow-${this.timeOfDay}.svg`);
       }
 
       // check if atmosphere
       if (id >= 701 && id <= 781) {
-        return require(`../assets/icons/fog-${time}.svg`);
+        return require(`../assets/icons/fog-${this.timeOfDay}.svg`);
       }
 
       // check if clouds
       if (id >= 801 && id <= 804) {
-        return require(`../assets/icons/clouds-${time}.svg`);
+        return require(`../assets/icons/clouds-${this.timeOfDay}.svg`);
       }
 
-      return require(`../assets/icons/clear-${time}.svg`);
+      return require(`../assets/icons/clear-${this.timeOfDay}.svg`);
     }
   }
 };

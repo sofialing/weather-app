@@ -1,9 +1,9 @@
 <template>
-  <main :class="{ day: isDayLight, night: !isDayLight }">
+  <main :class="timeOfDay">
     <Location :forecast="currentWeather" />
-    <Weather :forecast="currentWeather" />
-    <Details :forecast="currentWeather" />
-    <Forecast :forecast="weatherForecast" />
+    <Weather :forecast="currentWeather" :timeOfDay="timeOfDay" />
+    <Details :forecast="currentWeather" :timeOfDay="timeOfDay" />
+    <Forecast :forecast="weatherForecast" :timeOfDay="timeOfDay" />
   </main>
 </template>
 
@@ -32,14 +32,7 @@ export default {
     Forecast
   },
   computed: {
-    isDayLight() {
-      const now = Math.round(new Date() / 1000);
-      return (
-        now >= this.currentWeather.sys.sunrise &&
-        now <= this.currentWeather.sys.sunset
-      );
-    },
-    getTimeOfDay() {
+    timeOfDay() {
       const now = Math.round(new Date() / 1000);
 
       return now >= this.currentWeather.sys.sunrise &&

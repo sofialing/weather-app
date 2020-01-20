@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <i v-if="!dataRecived" class="fas fa-spinner fa-spin fa-2x"></i>
     <WeatherApp
       v-if="dataRecived"
       :currentWeather="currentWeather"
@@ -10,14 +11,9 @@
 
 <script>
 import WeatherApp from "./components/WeatherApp.vue";
+import API from "@/services/appServices.js";
 import axios from "axios";
 import moment from "moment";
-
-const API_CURRENT =
-  "http://api.openweathermap.org/data/2.5/weather?units=metric";
-const API_FORECAST =
-  "https://api.openweathermap.org/data/2.5/forecast?units=metric";
-const API_KEY = "&APPID=5c6c3b43fd40fea14df38a848bebf667";
 
 export default {
   name: "app",
@@ -35,7 +31,7 @@ export default {
     getCurrentPosition() {
       navigator.geolocation.getCurrentPosition(
         this.setCurrentPosition,
-        this.positionError
+        this.positionNotAvailable
       );
     },
     setCurrentPosition(position) {
@@ -44,15 +40,15 @@ export default {
 
       this.getWeatherData(`&lat=${lat}&lon=${lon}`);
     },
-    positionError() {
+    positionNotAvailable() {
       this.getWeatherData(`&lat=0&lon=0`);
     },
     getWeatherData(query) {
-      axios.get(API_CURRENT + query + API_KEY).then(res => {
+      axios.get(API.current + query + API.key).then(res => {
         this.currentWeather = res.data;
         this.dataRecived = true;
       });
-      axios.get(API_FORECAST + query + API_KEY).then(res => {
+      axios.get(API.forecast + query + API.key).then(res => {
         this.weatherForecast = this.filterData(res.data.list);
         this.dataRecived = true;
       });

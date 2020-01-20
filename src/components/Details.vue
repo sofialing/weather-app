@@ -2,7 +2,7 @@
   <section>
     <div class="measurements">
       <div>
-        <p>{{ forecast.wind.speed }}m/s</p>
+        <p>{{ forecast.wind.speed }} m/s</p>
         <p>Wind</p>
       </div>
       <div>
@@ -36,6 +36,10 @@ export default {
     forecast: {
       type: Object,
       required: true
+    },
+    timeOfDay: {
+      type: String,
+      required: true
     }
   },
   computed: {
@@ -46,10 +50,10 @@ export default {
       return moment.unix(this.forecast.sys.sunset).format("kk:mm");
     },
     sunriseIcon() {
-      return require(`@/assets/icons/sunrise-day.svg`);
+      return require(`@/assets/icons/sunrise-${this.timeOfDay}.svg`);
     },
     sunsetIcon() {
-      return require(`@/assets/icons/sunset-day.svg`);
+      return require(`@/assets/icons/sunset-${this.timeOfDay}.svg`);
     }
   }
 };
