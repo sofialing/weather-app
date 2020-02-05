@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Lager_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FFFFFF;}
-</style>
-<path id="Icon_map-search" class="st0" d="M22,18c3.4-5.6,1.6-12.9-4-16.3S5.1,0.1,1.7,5.7s-1.6,12.9,4,16.3c3.8,2.3,8.5,2.3,12.3,0
-	l8.1,8l4-4L22,18z M11.8,19.2c-4,0-7.3-3.3-7.3-7.3s3.3-7.3,7.3-7.3s7.3,3.3,7.3,7.3c0,0,0,0,0,0C19.2,15.9,15.9,19.2,11.8,19.2z"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30.12 30.02"><defs><style>.cls-1{fill:#fff;}</style></defs><title>search-night</title><g id="Lager_2" data-name="Lager 2"><g id="Lager_1-2" data-name="Lager 1"><path id="Icon_map-search" data-name="Icon map-search" class="cls-1" d="M22,18a11.87,11.87,0,1,0-4,4l8.1,8,4-4Zm-10.2,1.2a7.3,7.3,0,1,1,7.3-7.3h0A7.21,7.21,0,0,1,11.82,19.22Z"/></g></g></svg>
