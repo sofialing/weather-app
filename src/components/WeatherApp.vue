@@ -1,7 +1,7 @@
 <template>
 	<main :class="weatherType">
 		<Location :location="weather.location" />
-		<Weather :weather="weather" />
+		<Weather :weather="weather" :timeOfDay="timeOfDay" />
 		<Details :weather="weather" />
 		<Forecast :forecast="forecast" />
 	</main>
@@ -35,15 +35,18 @@ export default {
 	computed: {
 		weatherType() {
 			// Check if night
-			if (!this.isDayTime) {
+			if (this.timeOfDay === 'night') {
 				return 'night';
 			}
 
 			return this.weather.type;
 		},
-		isDayTime() {
+		timeOfDay() {
 			const now = Math.round(new Date() / 1000);
-			return now >= this.weather.sunrise[1] && now <= this.weather.sunset[1];
+			if (now >= this.weather.sunrise[1] && now <= this.weather.sunset[1]) {
+				return 'day';
+			}
+			return 'night';
 		}
 	}
 };

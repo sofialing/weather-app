@@ -1,10 +1,7 @@
 <template>
 	<section>
 		<div>
-			<img
-				:src="require('@/assets/icons/' + weather.type + '.svg')"
-				class="weather-icon"
-			/>
+			<img :src="weatherIcon" class="weather-icon" />
 			<p class="description">{{ weather.description }}</p>
 			<p class="time">Today {{ time }}</p>
 		</div>
@@ -23,6 +20,10 @@ export default {
 		weather: {
 			type: Object,
 			required: true
+		},
+		timeOfDay: {
+			type: Boolean,
+			required: true
 		}
 	},
 	created() {
@@ -36,6 +37,14 @@ export default {
 	methods: {
 		updateTime() {
 			this.time = moment().format('HH:mm');
+		}
+	},
+	computed: {
+		weatherIcon() {
+			if (this.weather.type === 'clear' && this.timeOfDay === 'night') {
+				return require(`@/assets/icons/${this.weather.type}-night.svg`);
+			}
+			return require(`@/assets/icons/${this.weather.type}.svg`);
 		}
 	}
 };
