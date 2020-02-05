@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<img :src="require('@/assets/icons/search.svg')" class="search-icon" />
+		<!-- <img :src="require('@/assets/icons/search.svg')" class="search-icon" /> -->
 		<p>{{ location }}</p>
 		<small v-if="this.location === 'Globe'"
 			>Allow geolocation to show your current weather.</small
