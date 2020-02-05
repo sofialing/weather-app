@@ -1,84 +1,53 @@
 <template>
-  <section>
-    <div v-for="item in forecast" :key="item.day">
-      <p class="day">{{ item.day }}</p>
-      <img :src="getWeatherIcon(item.icon)" class="weather-icon" />
-      <p class="temp">{{ item.temp }}&deg;</p>
-    </div>
-  </section>
+	<section>
+		<div v-for="item in forecast" :key="item.day">
+			<p class="day">{{ item.day }}</p>
+			<img
+				:src="require('@/assets/icons/' + item.type + '.svg')"
+				class="weather-icon"
+			/>
+			<p class="temp">{{ item.temp }}&deg;</p>
+		</div>
+	</section>
 </template>
 
 <script>
 export default {
-  name: "Forecast",
-  props: {
-    forecast: {
-      type: Array,
-      required: true
-    },
-    timeOfDay: {
-      type: String,
-      required: true
-    }
-  },
-  methods: {
-    getWeatherIcon(id) {
-      // check if thunderstorm
-      if (id >= 200 && id <= 232) {
-        return require(`../assets/icons/thunderstorm-${this.timeOfDay}.svg`);
-      }
-
-      // check if rain
-      if (id >= 300 && id <= 531) {
-        return require(`../assets/icons/rain-${this.timeOfDay}.svg`);
-      }
-
-      // check if snow
-      if (id >= 600 && id <= 622) {
-        return require(`../assets/icons/snow-${this.timeOfDay}.svg`);
-      }
-
-      // check if atmosphere
-      if (id >= 701 && id <= 781) {
-        return require(`../assets/icons/fog-${this.timeOfDay}.svg`);
-      }
-
-      // check if clouds
-      if (id >= 801 && id <= 804) {
-        return require(`../assets/icons/clouds-${this.timeOfDay}.svg`);
-      }
-
-      return require(`../assets/icons/clear-${this.timeOfDay}.svg`);
-    }
-  }
+	name: 'Forecast',
+	props: {
+		forecast: {
+			type: Array,
+			required: true
+		}
+	}
 };
 </script>
 
 <style scoped>
 section {
-  display: grid;
-  grid-auto-columns: auto;
-  grid-auto-flow: column;
-  gap: 2rem;
+	display: grid;
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	gap: 2rem;
 }
 
 div {
-  min-width: 40px;
-  text-align: center;
+	min-width: 40px;
+	text-align: center;
 }
 
 .day {
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
+	text-transform: uppercase;
+	margin-bottom: 0.5rem;
 }
 
 .temp {
-  font-size: 1.25rem;
-  font-weight: 700;
+	font-size: 1.25rem;
+	font-weight: 700;
 }
 
 .weather-icon {
-  height: 24px;
-  margin-bottom: 0.5rem;
+	height: 24px;
+	margin-bottom: 0.5rem;
 }
 </style>
