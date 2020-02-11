@@ -22,7 +22,7 @@ export default {
 			required: true
 		},
 		timeOfDay: {
-			type: Boolean,
+			type: String,
 			required: true
 		}
 	},
