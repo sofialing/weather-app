@@ -1,4 +1,4 @@
-![screenshot](public/app-screenshot.jpg)
+![screenshot](public/weather-app-screenshot.jpg)
 
 # Weather App
 
