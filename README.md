@@ -3,7 +3,11 @@
 # Weather App
 
 A Weather app that fetches weather forecast from OpenWeatherMap.org based on user's location.
-Different theme depending on time of day (day / night). Different weather icons based on current weather.
+Different backgrounds and icons based on current weather.
+
+## Demo
+
+[Weather App - Live demo (v.1)](https://sofialing.github.io/weather-app/)
 
 ## Built With
 
@@ -13,4 +17,3 @@ Different theme depending on time of day (day / night). Different weather icons 
 ### Future developments
 
 -   Search function
--   Update bakgrund image according to current weather
