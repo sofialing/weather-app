@@ -12,41 +12,41 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 
 export default {
-	name: 'Weather',
+	name: "Weather",
 	props: {
 		weather: {
 			type: Object,
-			required: true
+			required: true,
 		},
 		timeOfDay: {
-			type: Boolean,
-			required: true
-		}
+			type: String,
+			required: true,
+		},
 	},
 	created() {
 		setInterval(this.updateTime, 1000);
 	},
 	data() {
 		return {
-			time: moment().format('HH:mm')
+			time: moment().format("HH:mm"),
 		};
 	},
 	methods: {
 		updateTime() {
-			this.time = moment().format('HH:mm');
-		}
+			this.time = moment().format("HH:mm");
+		},
 	},
 	computed: {
 		weatherIcon() {
-			if (this.weather.type === 'clear' && this.timeOfDay === 'night') {
+			if (this.weather.type === "clear" && this.timeOfDay === "night") {
 				return require(`@/assets/icons/${this.weather.type}-night.svg`);
 			}
 			return require(`@/assets/icons/${this.weather.type}.svg`);
-		}
-	}
+		},
+	},
 };
 </script>
 
